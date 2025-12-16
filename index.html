@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 確保全屏遮罩的層級最高 */
+        
         
         .z-50 {
             z-index: 50;
@@ -98,7 +98,7 @@
             computed
         } = Vue;
 
-        // 引入您提供的 31 個食譜數據
+        
         const rawRecipesData = [{
             id: 1,
             name: "巧克力蛋糕",
@@ -356,9 +356,9 @@
             麵包: "bread"
         };
 
-        // 輔助函數：解析食材，支援數量和單位
+    
         function parseIngredient(text) {
-            // 匹配格式："名稱 數量單位" 或 "名稱 數量"
+            //格式："名稱 數量單位"
             const match = text.match(/(.+?)\s(\d+)(g|ml|顆|個)?$/);
             if (!match) return {
                 name: text,
@@ -379,7 +379,7 @@
                 categoryKey: CATEGORY_MAP[raw.category],
                 description: raw.shortDesc,
                 image: {
-                    src: raw.img, // 使用本地路徑
+                    src: raw.img,
                     alt: raw.name
                 },
                 ingredients: raw.ingredients.map(parseIngredient),
@@ -401,7 +401,6 @@
                     selectedRecipe: null,
                     portion: 1, // 份量倍數
                     recipes: mappedRecipes.map(r => {
-                        // 從 localStorage 載入收藏和評分狀態
                         const savedState = saved[r.id] || {};
                         return {
                             ...r,
@@ -476,12 +475,10 @@
                     const p = this.portion;
                     return r.ingredients.map(i => {
                         if (i.amount) {
-                            const adjustedAmount = (i.amount * p);
-                            // 保持整數或一位小數點，避免過長小數
+                            const adjustedAmount = (i.amount * p)
                             const formattedAmount = adjustedAmount % 1 !== 0 ? adjustedAmount.toFixed(1) : adjustedAmount;
                             return `${i.name} ${formattedAmount}${i.unit}`;
                         }
-                        // 沒有數量的食材直接返回名稱
                         return i.name;
                     });
                 },
@@ -536,3 +533,4 @@
 </body>
 
 </html>
+
